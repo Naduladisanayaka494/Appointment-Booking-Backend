@@ -1,6 +1,6 @@
 package com.AppointmentBookingSystem.Appointment.Booking.System.services.jwt;
-import com.AppointmentBookingSystem.Appointment.Booking.System.services.jwt.UserService;
-import evenhandler.even.handler.repository.UserRepository;
+
+import com.AppointmentBookingSystem.Appointment.Booking.System.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
