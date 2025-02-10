@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/slots")
+@RequestMapping("/api/slots")
 public class TimeSlotController {
 
     @Autowired
