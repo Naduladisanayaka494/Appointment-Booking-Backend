@@ -24,6 +24,11 @@ public class AppointmentController {
         return appointmentService.getUserAppointments(user);
     }
 
+    @GetMapping("/all")
+    public List<Appointment> getAllAppointments() {
+        return appointmentService.getAllAppointments();
+    }
+
     @PostMapping("/book")
     public Appointment bookAppointment(@RequestParam Long userId, @RequestParam Long timeSlotId) throws Exception {
         User user = new User();
