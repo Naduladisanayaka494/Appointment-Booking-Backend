@@ -23,7 +23,10 @@ public class AppointmentController {
         user.setId(userId);
         return appointmentService.getUserAppointments(user);
     }
-
+    @GetMapping("/{appointmentId}")
+    public Appointment getAppointmentById(@PathVariable Long appointmentId) throws Exception {
+        return appointmentService.getAppointmentById(appointmentId);
+    }
     @GetMapping("/all")
     public List<Appointment> getAllAppointments() {
         return appointmentService.getAllAppointments();
@@ -36,8 +39,8 @@ public class AppointmentController {
         return appointmentService.bookAppointment(user, timeSlotId);
     }
 
-    @DeleteMapping("/{appointmentId}")
-    public void cancelAppointment(@PathVariable Long appointmentId) throws Exception {
-        appointmentService.cancelAppointment(appointmentId);
+    @DeleteMapping
+    public void cancelAppointment(@RequestParam Long appointmentId,@RequestParam Long timeSlotId) throws Exception {
+        appointmentService.cancelAppointment(appointmentId,timeSlotId);
     }
 }

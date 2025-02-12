@@ -9,7 +9,7 @@ import com.AppointmentBookingSystem.Appointment.Booking.System.repository.Appoin
 import com.AppointmentBookingSystem.Appointment.Booking.System.repository.TimeSlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.AppointmentBookingSystem.Appointment.Booking.System.entity.TimeSlot;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +42,7 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
-    public void cancelAppointment(Long appointmentId) throws Exception {
+    public void cancelAppointment(Long appointmentId,Long timeSlotId) throws Exception {
         Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentId);
         if (appointmentOpt.isEmpty()) {
             throw new Exception("Appointment not found.");
@@ -50,10 +50,20 @@ public class AppointmentService {
 
         Appointment appointment = appointmentOpt.get();
         appointment.setCancelled(true);
+        Optional<TimeSlot> timeSlotOpt = timeSlotRepository.findById(timeSlotId);
+        TimeSlot timeSlot = timeSlotOpt.get();
+        timeSlot.setBooked(false);
+        timeSlotRepository.save(timeSlot);
         appointmentRepository.save(appointment);
     }
 
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
+
+    public Appointment getAppointmentById(Long appointmentId) throws Exception {
+        return appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new Exception("Appointment not found with ID: " + appointmentId));
+    }
+
 }
