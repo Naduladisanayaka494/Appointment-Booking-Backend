@@ -10,6 +10,8 @@ import com.AppointmentBookingSystem.Appointment.Booking.System.repository.TimeSl
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.AppointmentBookingSystem.Appointment.Booking.System.entity.TimeSlot;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +66,10 @@ public class AppointmentService {
     public Appointment getAppointmentById(Long appointmentId) throws Exception {
         return appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new Exception("Appointment not found with ID: " + appointmentId));
+    }
+
+    public List<Appointment> filterAppointments(Long userId, LocalDateTime startDate, LocalDateTime endDate, Boolean isCancelled) {
+        return appointmentRepository.findFilteredAppointments(userId, startDate, endDate, isCancelled);
     }
 
 }

@@ -5,8 +5,10 @@ import com.AppointmentBookingSystem.Appointment.Booking.System.entity.Appointmen
 import com.AppointmentBookingSystem.Appointment.Booking.System.entity.User;
 import com.AppointmentBookingSystem.Appointment.Booking.System.services.appointment.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -42,5 +44,15 @@ public class AppointmentController {
     @DeleteMapping
     public void cancelAppointment(@RequestParam Long appointmentId,@RequestParam Long timeSlotId) throws Exception {
         appointmentService.cancelAppointment(appointmentId,timeSlotId);
+    }
+
+    @GetMapping("/filter")
+    public List<Appointment> filterAppointments(
+            @RequestParam(required = false) Long userId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+            @RequestParam(required = false) Boolean isCancelled) {
+
+        return appointmentService.filterAppointments(userId, startDate, endDate, isCancelled);
     }
 }
